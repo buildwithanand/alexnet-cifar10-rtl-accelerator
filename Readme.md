@@ -14,6 +14,8 @@ The code in this repo does the following:
 - Runs inference on selected CIFAR-10 image ranges and exports results in `cifar10_alexnet/predict.py`
 - Writes training metrics to CSV and produces accuracy/diagnostic plots in `cifar10_alexnet/results/`
 - Reports checkpoint tensor dtypes in `cifar10_alexnet/check_weighs.py`
+- Converts the trained FP32 AlexNet model to INT8 using post-training static quantization in `Quantization_FP32_to_INT8/quantize_INT8.py`
+- Exports quantized weights plus metadata suitable for FPGA/RTL deployment in `Quantization_FP32_to_INT8/outputs/`
 
 ## Repository structure
 
@@ -36,7 +38,13 @@ alexnet_pynq/
 │       └── prediction_analysis/
 │           └── predictions_0_4999.csv
 ├── Quantization_FP32_to_INT8/
-│   └── (currently empty / reserved for quantization work)
+│   ├── quantize_INT8.py
+│   └── outputs/
+│       ├── alexnet_int8_model.pth
+│       ├── alexnet_int8_state.pth
+│       ├── alexnet_int8_weights.npz
+│       ├── alexnet_int8_metadata.json
+│       └── quantization_report.json
 └── .gitignore (if present in your workspace)
 ```
 
@@ -188,11 +196,43 @@ This reports:
 - dtypes used in the checkpoint
 - whether the weights are FP32, FP16, INT8, or mixed
 
+## INT8 quantization workflow
+
+The repository also includes a post-training static INT8 quantization pipeline for the trained CIFAR-10 AlexNet model.
+
+From the project root, run:
+
+```bash
+python Quantization_FP32_to_INT8/quantize_INT8.py
+```
+
+What this script does:
+
+- Loads the trained FP32 checkpoint from `cifar10_alexnet/checkpoints/best_model.pth`
+- Calibrates activation ranges on a subset of CIFAR-10 images
+- Uses PyTorch FX quantization to convert the model to INT8
+- Reports FP32 and INT8 test accuracy before and after conversion
+- Saves both the quantized model and a compressed weight export for hardware targeting
+
+Expected output files:
+
+```text
+Quantization_FP32_to_INT8/outputs/
+├── alexnet_int8_model.pth
+├── alexnet_int8_state.pth
+├── alexnet_int8_weights.npz
+├── alexnet_int8_metadata.json
+├── quantization_report.json
+└── (generated during each run)
+```
+
+The export includes per-layer INT8 weight arrays and quantization metadata such as scale, zero point, and qscheme values, which are useful for FPGA or RTL acceleration workflows.
+
 ## Notes
 
 - The project is Windows-friendly and uses `num_workers=2` by default in training.
 - Mixed precision is enabled automatically on CUDA devices when available.
-- The `Quantization_FP32_to_INT8` folder is currently empty and is intended for future FP32-to-INT8 quantization work.
+- The `Quantization_FP32_to_INT8` folder is no longer a placeholder and contains the model conversion/export pipeline.
 - The saved model checkpoint includes the model state dict and metadata such as class names and validation accuracy.
 
 ## Typical workflow
@@ -203,5 +243,6 @@ This reports:
 4. Run `python predict.py --start 0 --count 5000`
 5. Inspect generated CSV and plots
 6. Use `python check_weighs.py` to inspect checkpoint precision
+7. Run `python Quantization_FP32_to_INT8/quantize_INT8.py` to create the INT8 export
 
-This repository is intended as a compact, readable example of a CIFAR-10 training and evaluation pipeline built around a lightweight AlexNet-inspired PyTorch model.
+This repository is intended as a compact, readable example of a CIFAR-10 training and evaluation pipeline built around a lightweight AlexNet-inspired PyTorch model, with an added path for quantized deployment preparation.
