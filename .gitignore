@@ -3,3 +3,25 @@ cifar10_alexnet/cifar-10-python.tar.gz
 cifar10_alexnet/cifar-10-batches-py/
 cifar10_alexnet/data/
 /state 
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# Dataset
+data/
+
+# Training checkpoints and logs
+checkpoints/
+logs/
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+
+# Temporary outputs — uncomment only if you want to ignore all outputs
+# Quantization_FP32_to_INT8/outputs/
