@@ -78,7 +78,7 @@
         0
       ],
       "quantized_axis": 0,
-      "output_scale": 0.00490963738411665,
+      "output_scale": 0.011513283476233482,
       "output_zero_point": 0
     },
     "features.2": {
@@ -223,7 +223,7 @@
         0
       ],
       "quantized_axis": 0,
-      "output_scale": 0.005027154926210642,
+      "output_scale": 0.015976587310433388,
       "output_zero_point": 0
     },
     "features.5": {
@@ -496,7 +496,7 @@
         0
       ],
       "quantized_axis": 0,
-      "output_scale": 0.004603325389325619,
+      "output_scale": 0.015090192668139935,
       "output_zero_point": 0
     },
     "classifier.1": {
@@ -1023,7 +1023,7 @@
         0
       ],
       "quantized_axis": 0,
-      "output_scale": 0.02166774868965149,
+      "output_scale": 0.06125257909297943,
       "output_zero_point": 0
     },
     "classifier.4": {
@@ -1058,19 +1058,19 @@
         0
       ],
       "quantized_axis": 0,
-      "output_scale": 0.07464215904474258,
-      "output_zero_point": 167
+      "output_scale": 0.24004638195037842,
+      "output_zero_point": 146
     }
   },
   "activation_qparams_from_graph": [
     {
       "node": "quantize_per_tensor",
-      "target": "<built-in method quantize_per_tensor of type object at 0x00007FFBF743BC40>",
+      "target": "<built-in method quantize_per_tensor of type object at 0x00007FFC1922BC40>",
       "dtype": "torch.quint8"
     },
     {
       "node": "quantize_per_tensor_6",
-      "target": "<built-in method quantize_per_tensor of type object at 0x00007FFBF743BC40>",
+      "target": "<built-in method quantize_per_tensor of type object at 0x00007FFC1922BC40>",
       "dtype": "torch.quint8"
     }
   ]

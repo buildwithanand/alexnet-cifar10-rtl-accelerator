@@ -45,7 +45,7 @@ TEST_BATCH_SIZE = 256
 
 # This version assumes your train.py uses ToTensor() without
 # Normalize(). Match these settings to your original train.py.
-USE_NORMALIZATION = False
+USE_NORMALIZATION = True
 
 CIFAR_MEAN = (0.4914, 0.4822, 0.4465)
 CIFAR_STD = (0.2470, 0.2435, 0.2616)
