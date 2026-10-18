@@ -1,0 +1,4 @@
+# CIFAR-10 dataset files
+cifar10_alexnet/cifar-10-python.tar.gz
+cifar10_alexnet/data/
+cifar10_alexnet/cifar-10-batches-py/
