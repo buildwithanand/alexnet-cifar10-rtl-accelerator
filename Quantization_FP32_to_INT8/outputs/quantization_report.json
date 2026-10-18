@@ -1,0 +1,9 @@
+{
+  "checkpoint": "D:\\VLSI\\PROJECTS\\alexnet_pynq\\cifar10_alexnet\\checkpoints\\best_model.pth",
+  "quantization": "post-training static quantization",
+  "backend": "onednn",
+  "calibration_images": 2000,
+  "fp32_test_accuracy_percent": 39.53,
+  "int8_test_accuracy_percent": 39.51,
+  "accuracy_delta_percentage_points": -0.020000000000003126
+}
